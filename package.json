@@ -1,7 +1,7 @@
 {
-  "name": "tape-tally-sheet",
+  "name": "signal-tally-sheet",
   "version": "1.0.0",
-  "description": "tape Tally Sheet",
+  "description": "signal Tally Sheet",
   "main": "index.js",
   "devDependencies": {
     "@types/google-apps-script": "^1.0.37"

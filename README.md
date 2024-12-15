@@ -1,5 +1,5 @@
-# Tape Tally
-Script to help manage Zenless Zone Zero tape history using Google Sheet Document.
+# Signal Tally
+Script to help manage Zenless Zone Zero signal history using Google Sheet Document.
 
 ## Project Website
 Visit the Genshin Impact collection of Google Sheets tools:
@@ -7,14 +7,14 @@ Visit the Genshin Impact collection of Google Sheets tools:
 https://gensheets.co.uk 
 
 ## Google Add-on
-Tape Tally is currently not available on Google Workspace Marketplace.
+Signal Tally is currently not available on Google Workspace Marketplace.
 
 ## Preview
 
 ## Tutorial
 
 ## Template Document
-If you prefer to use the Tape Tally document with embedded script, you can make a copy here:
+If you prefer to use the Signal Tally document with embedded script, you can make a copy here:
 https://docs.google.com/spreadsheets/d/1olPNo7UJRr_q5hQqoQsyw6pBd5nsh_4Y0Bs5lucsg-Y/edit
 
 ## How to compile script
