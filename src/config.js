@@ -45,8 +45,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   English: {
     code: "en",
     full_code: "en-us",
-    "4_star": " (4-Star)",
-    "5_star": " (5-Star)",
+    "B": " (B-Rank)",
+    "A": " (A-Rank)",
+    "S": " (S-Rank)",
     gacha_type_2: "Exclusive Channel",
     gacha_type_1: "Stable Channel",
     gacha_type_3: "W-Engine Channel",
@@ -58,8 +59,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   German: {
     code: "de",
     full_code: "de-de",
-    "4_star": " (4 Sterne)",
-    "5_star": " (5 Sterne)",
+    "B": " (Rang-B)",
+    "A": " (Rang-A)",
+    "S": " (Rang-S)",
     gacha_type_2: "Exklusiver Kanal",
     gacha_type_1: "Stabiler Kanal",
     gacha_type_3: "W-Motor-Kanal",
@@ -71,8 +73,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   French: {
     code: "fr",
     full_code: "fr-fr",
-    "4_star": " (4★)",
-    "5_star": " (5★)",
+    "B": " (rang B)",
+    "A": " (rang A)",
+    "S": " (rang S)",
     gacha_type_2: "Canal exclusif",
     gacha_type_1: "Canal stable",
     gacha_type_3: "Canal de moteurs-amplis",
@@ -84,8 +87,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Spanish: {
     code: "es",
     full_code: "es-es",
-    "4_star": " (4★)",
-    "5_star": " (5★)",
+    "B": " (de grado B)",
+    "A": " (de grado A)",
+    "S": " (de grado S)",
     gacha_type_2: "Canal Exclusivo",
     gacha_type_1: "Canal Estable",
     gacha_type_3: "Canal Amplificado",
@@ -97,8 +101,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   "Chinese Traditional": {
     code: "zh-tw",
     full_code: "zh-tw",
-    "4_star": " (四星)",
-    "5_star": " (五星)",
+    "B": " (B級)",
+    "A": " (A級)",
+    "S": " (S級)",
     gacha_type_2: "獨家頻道",
     gacha_type_1: "常駐頻道",
     gacha_type_3: "音擎頻道",
@@ -110,8 +115,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   "Chinese Simplified": {
     code: "zh-cn",
     full_code: "zh-cn",
-    "4_star": " (四星)",
-    "5_star": " (五星)",
+    "B": " (B级)",
+    "A": " (A级)",
+    "S": " (S级)",
     gacha_type_2: "独家频段",
     gacha_type_1: "常驻频段",
     gacha_type_3: "音擎频段",
@@ -123,8 +129,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Indonesian: {
     code: "id",
     full_code: "id-id",
-    "4_star": " (4★)",
-    "5_star": " (5★)",
+    "B": " (Tier-B)",
+    "A": " (Tier-A)",
+    "S": " (Tier-S)",
     gacha_type_2: "FM Eksklusif",
     gacha_type_1: "FM Stabil",
     gacha_type_3: "FM W-Engine",
@@ -136,8 +143,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Japanese: {
     code: "ja",
     full_code: "ja-jp",
-    "4_star": " (★4)",
-    "5_star": " (★5)",
+    "B": " (B級)",
+    "A": " (A級)",
+    "S": " (S級)",
     gacha_type_2: "独占チャンネル",
     gacha_type_1: "常設チャンネル",
     gacha_type_3: "音動機チャンネル",
@@ -149,8 +157,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Vietnamese: {
     code: "vi",
     full_code: "vi-vn",
-    "4_star": " (4 sao)",
-    "5_star": " (5 sao)",
+    "B": " (cấp B)",
+    "A": " (cấp A)",
+    "S": " (cấp S)",
     gacha_type_2: "Kênh Độc Quyền",
     gacha_type_1: "Kênh Thường Trực",
     gacha_type_3: "Kênh W-Engine",
@@ -162,8 +171,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Korean: {
     code: "ko",
     full_code: "ko-kr",
-    "4_star": " (★4)",
-    "5_star": " (★5)",
+    "B": " (B급)",
+    "A": " (A급)",
+    "S": " (S급)",
     gacha_type_2: "독점 채널",
     gacha_type_1: "일반 채널",
     gacha_type_3: "W-엔진 채널",
@@ -175,8 +185,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Portuguese: {
     code: "pt",
     full_code: "pt-pt",
-    "4_star": " (4★)",
-    "5_star": " (5★)",
+    "B": " (Classe B)",
+    "A": " (Classe A)",
+    "S": " (Classe S)",
     gacha_type_2: "Canal Exclusivo",
     gacha_type_1: "Canal Estável",
     gacha_type_3: "Canal Motor-W",
@@ -188,8 +199,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Thai: {
     code: "th",
     full_code: "th-th",
-    "4_star": " (4 ดาว)",
-    "5_star": " (5 ดาว)",
+    "B": " (แรงก์ B)",
+    "A": " (แรงก์ A)",
+    "S": " (แรงก์ S)",
     gacha_type_2: "Exclusive Channel",
     gacha_type_1: "Stable Channel",
     gacha_type_3: "W-Engine Channel",
@@ -201,8 +213,9 @@ var AUTO_IMPORT_LANGUAGE_SETTINGS_FOR_IMPORT = {
   Russian: {
     code: "ru",
     full_code: "ru-ru",
-    "4_star": " (4★)",
-    "5_star": " (5★)",
+    "B": " (ранга B)",
+    "A": " (ранга A)",
+    "S": " (ранга S)",
     gacha_type_2: "Выделенный канал",
     gacha_type_1: "Стабильный канал",
     gacha_type_3: "Канал амплификаторов",
@@ -223,12 +236,14 @@ var AUTO_IMPORT_ADDITIONAL_QUERY = [
 var AUTO_IMPORT_URL = "https://public-operation-nap-sg.hoyoverse.com/common/gacha_record/api/getGachaLog";
 var AUTO_IMPORT_URL_CHINA = "https://public-operation-nap.mihoyo.com/common/gacha_record/api/getGachaLog";
 
+var AUTO_IMPORT_URL_ERROR_CODE_INVALID = -1;
+var AUTO_IMPORT_URL_ERROR_CODE_AUTH_KEY_TIMEOUT_MESSAGE = "auth key time out";
+var AUTO_IMPORT_URL_ERROR_CODE_AUTH_KEY_INVALID_MESSAGE =  "illegal base64 data at input byte 764";
+var AUTO_IMPORT_URL_ERROR_CODE_AUTH_KEY_MISSING_MESSAGE = "auth key or sign type empty";
+var AUTO_IMPORT_URL_ERROR_CODE_AUTHKEY_VER_INVALID_MESSAGE = "public key is missing"; // authkey_ver must be 1
+var AUTO_IMPORT_URL_ERROR_CODE_AUTHKEY_VER_MISSING_MESSAGE = "auth key or sign type empty"; // authkey_ver is missing
 
-var AUTO_IMPORT_URL_ERROR_CODE_AUTH_TIMEOUT = -101;
-var AUTO_IMPORT_URL_ERROR_CODE_AUTH_INVALID = -100;
-var AUTO_IMPORT_URL_ERROR_CODE_LANGUAGE_CODE = -108;
-var AUTO_IMPORT_URL_ERROR_CODE_AUTHKEY_DENIED = -109;
-var AUTO_IMPORT_URL_ERROR_CODE_REQUEST_PARAMS = -104;
+var AUTO_IMPORT_URL_ERROR_CODE_MISSING_PARAMETER = -111;
 
 // Signal Tally Const
 var SIGNAL_TALLY_REDIRECT_SOURCE_ABOUT_SHEET_NAME = "About";
