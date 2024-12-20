@@ -91,12 +91,13 @@ function importFromAPI(urlForAPI) {
   var bannerName;
   var bannerSheet;
   var bannerSettings;
+  var bannerEnabledDictionary = [];
   if (authKey == "") {
     // Display auth key not available
     for (var i = 0; i < SIGNAL_TALLY_NAME_OF_SIGNAL_HISTORY.length; i++) {
       bannerName = SIGNAL_TALLY_NAME_OF_SIGNAL_HISTORY[i];
       bannerSettings = AUTO_IMPORT_BANNER_SETTINGS_FOR_IMPORT[bannerName];
-      bannerSettings.setStatusText("No auth key", settingsSheet);
+      bannerSettingsSetStatusText(bannerSettings, "No auth key", settingsSheet);
     }
   } else {
     var selectedLanguageCode = settingsSheet.getRange("B2").getValue();
@@ -110,12 +111,13 @@ function importFromAPI(urlForAPI) {
     for (var i = 0; i < SIGNAL_TALLY_NAME_OF_SIGNAL_HISTORY.length; i++) {
       bannerName = SIGNAL_TALLY_NAME_OF_SIGNAL_HISTORY[i];
       bannerSettings = AUTO_IMPORT_BANNER_SETTINGS_FOR_IMPORT[bannerName];
-      bannerSettings.setStatusText("", settingsSheet);
+      bannerSettingsSetStatusText(bannerSettings, "", settingsSheet);
+      bannerEnabledDictionary[bannerName] = bannerSettings.isEnabled(settingsSheet);
     }
     for (var i = 0; i < SIGNAL_TALLY_NAME_OF_SIGNAL_HISTORY.length; i++) {
       bannerName = SIGNAL_TALLY_NAME_OF_SIGNAL_HISTORY[i];
       bannerSettings = AUTO_IMPORT_BANNER_SETTINGS_FOR_IMPORT[bannerName];
-      if (bannerSettings.isEnabled(settingsSheet)) {
+      if (bannerEnabledDictionary[bannerName]) {
         bannerSheet = SpreadsheetApp.getActive().getSheetByName(bannerName);
         if (bannerSheet) {
           var success = checkPages(
@@ -127,16 +129,14 @@ function importFromAPI(urlForAPI) {
             settingsSheet,
             authKey);
           if (!success) {
-            bannerSettings.setStatusText(
-              "Stopped Due to Error:\n" + bannerSettings.getStatusText(settingsSheet),
-              settingsSheet);
+            bannerSettingsSetStatusText(bannerSettings, "Stopped Due to Error:\n" + bannerSettings.getStatusText(settingsSheet), settingsSheet);
             break;
           }
         } else {
-          bannerSettings.setStatusText("Missing sheet", settingsSheet);
+          bannerSettingsSetStatusText(bannerSettings, "Missing sheet", settingsSheet);
         }
       } else {
-        bannerSettings.setStatusText("Skipped", settingsSheet);
+        bannerSettingsSetStatusText(bannerSettings, "Skipped", settingsSheet);
       }
     }
   }
@@ -144,7 +144,7 @@ function importFromAPI(urlForAPI) {
 }
 
 function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, selectedServer, settingsSheet, authKey) {
-  bannerSettings.setStatusText("Starting", settingsSheet);
+  bannerSettingsSetStatusText(bannerSettings, "Starting", settingsSheet);
   /* Get latest signal from banner */
   var iLastRow = bannerSheet.getRange(2, 5, bannerSheet.getLastRow(), 1).getValues().filter(String).length;
   var signalTextString;
@@ -155,17 +155,17 @@ function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, s
     lastSignalDateAndTimeString = bannerSheet.getRange("E" + iLastRow).getValue();
     signalTextString = bannerSheet.getRange("A" + iLastRow).getValue();
     if (lastSignalDateAndTimeString) {
-      bannerSettings.setStatusText(`Last signal: ${lastSignalDateAndTimeString}`, settingsSheet);
+      bannerSettingsSetStatusText(bannerSettings, `Last signal: ${lastSignalDateAndTimeString}`, settingsSheet);
       lastSignalDateAndTimeString = lastSignalDateAndTimeString.split(" ").join("T");
       lastSignalDateAndTime = new Date(lastSignalDateAndTimeString+".000Z");
     } else {
       iLastRow = 1;
-      bannerSettings.setStatusText("No previous signals", settingsSheet);
+      bannerSettingsSetStatusText(bannerSettings, "No previous signals", settingsSheet);
     }
     iLastRow++; // Move last row to new row
   } else {
     iLastRow = 2; // Move last row to new row
-    bannerSettings.setStatusText("", settingsSheet);
+    bannerSettingsSetStatusText(bannerSettings, "", settingsSheet);
   }
   
   var extractSignals = [];
@@ -189,7 +189,7 @@ function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, s
   var textSignal;
   var oldTextSignal;
   while (!is_done) {
-    bannerSettings.setStatusText("Loading page: "+page, settingsSheet);
+    bannerSettingsSetStatusText(bannerSettings, "Loading page: "+page, settingsSheet);
     var response = UrlFetchApp.fetch(urlForBanner+"&page="+page+"&end_id="+end_id);
     var jsonResponse = response.getContentText();
     var jsonDict = JSON.parse(jsonResponse);
@@ -204,10 +204,12 @@ function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, s
           var dateAndTimeString = signal['time'];
           textSignal = signal['item_type']+signal['name'];
           /* Mimic the website in showing specific language wording */
-          if (signal['rank_type'] == 2) {
-            textSignal += languageSettings["4_star"];
-          } else if (signal['rank_type'] == 3) {
-            textSignal += languageSettings["5_star"];
+          if (signal['rank_type'] == 3) {
+            textSignal += languageSettings["A"];
+          } else if (signal['rank_type'] == 2) {
+            textSignal += languageSettings["B"];
+          } else if (signal['rank_type'] == 4) {
+            textSignal += languageSettings["S"];
           }
           oldTextSignal = textSignal+dateAndTimeString;
           var gachaString = "gacha_type_"+signal['gacha_type'];
@@ -250,9 +252,7 @@ function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, s
               extractSignals[previousSignalIndex] = previousSignal;
             }
             if (overrideIndex == 1) {
-              bannerSettings.setStatusText(
-                `Error: Multi signal contains 11 within same date and time: ${dateAndTimeString}, found so far: ${extractSignals.length}`,
-                settingsSheet);
+              bannerSettingsSetStatusText(bannerSettings, `Error: Multi signal contains 11 within same date and time: ${dateAndTimeString}, found so far: ${extractSignals.length}`, settingsSheet);
               return false;
             } else {
               overrideIndex--;
@@ -265,9 +265,7 @@ function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, s
                 // Within 1 second range resuming multi count
                 overrideIndex--;
               } else {
-                bannerSettings.setStatusText(
-                  `Error: Multi signal is incomplete with override ${overrideIndex}@${dateAndTimeString}, found so far: ${extractSignals.length}`,
-                  settingsSheet);
+                bannerSettingsSetStatusText(bannerSettings, `Error: Multi signal is incomplete with override ${overrideIndex}@${dateAndTimeString}, found so far: ${extractSignals.length}`, settingsSheet);
                 return false;
               }
             } else {
@@ -298,28 +296,27 @@ function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, s
     } else {
       var message = jsonDict["message"];
       var return_code = jsonDict["retcode"];
-
       var title ="Error code: "+return_code;
       SpreadsheetApp.getActiveSpreadsheet().toast(message, title);
 
       switch (return_code) {
-        case AUTO_IMPORT_URL_ERROR_CODE_AUTHKEY_DENIED:
-          bannerSettings.setStatusText("feedback URL\nNo Longer Works", settingsSheet);
+        case AUTO_IMPORT_URL_ERROR_CODE_MISSING_PARAMETER:
+          bannerSettingsSetStatusText(bannerSettings, "Missing parameter", settingsSheet);
           return false;
-        case AUTO_IMPORT_URL_ERROR_CODE_AUTH_TIMEOUT:
-          bannerSettings.setStatusText("auth timeout", settingsSheet);
+        case AUTO_IMPORT_URL_ERROR_CODE_INVALID:
+          bannerSettingsSetStatusText(bannerSettings, message, settingsSheet);
           return false;
         case AUTO_IMPORT_URL_ERROR_CODE_AUTH_INVALID:
-          bannerSettings.setStatusText("auth invalid", settingsSheet);
+          bannerSettingsSetStatusText(bannerSettings, "auth invalid", settingsSheet);
           return false;
         case AUTO_IMPORT_URL_ERROR_CODE_REQUEST_PARAMS:
-          bannerSettings.setStatusText("Change server setting", settingsSheet);
+          bannerSettingsSetStatusText(bannerSettings, "Change server setting", settingsSheet);
           return false;
         default:
-          bannerSettings.setStatusText(`Unknown return code: ${return_code}`, settingsSheet);
+          bannerSettingsSetStatusText(bannerSettings, `Unknown return code: ${return_code}`, settingsSheet);
           failed++;
           if (failed > 2){
-            bannerSettings.setStatusText("Failed too many times", settingsSheet);
+            bannerSettingsSetStatusText(bannerSettings, "Failed too many times", settingsSheet);
             // Preserve legacy behavior which did not treat this the same as other error code
             // cases
             return true;
@@ -353,12 +350,28 @@ function checkPages(bannerSheet, bannerName, bannerSettings, languageSettings, s
       extractSignals.reverse();
       bannerSheet.getRange(iLastRow, 1, extractSignals.length, 2).setValues(extractSignals);
     }
-    bannerSettings.setStatusText(outputString, settingsSheet);
+    bannerSettingsSetStatusText(bannerSettings, outputString, settingsSheet);
   } else {
-    bannerSettings.setStatusText("Nothing to add", settingsSheet);
+    bannerSettingsSetStatusText(bannerSettings, "Nothing to add", settingsSheet);
   }
 
   return true;
+}
+
+/* This is a bodged solution for AutoImport with multiple pages, where settingsSheet seems to invoke:
+ * 
+ * Exception: Service Spreadsheets failed while accessing document with ID [Current Document ID].
+ * 
+ * Which doesn't make any sense, as the settingsSheet variable seems to be invalid or cleared.
+ * This causes setValue() and getRange().getValue() as failed to access, when the settingsSheet was already loaded.
+ */
+function bannerSettingsSetStatusText(bannerSettings, statusText, settingsSheet) {
+  try {
+    bannerSettings.setStatusText(statusText, settingsSheet);
+  } catch(e) {
+    var settingsSheet = getSettingsSheet();
+    bannerSettings.setStatusText(statusText, settingsSheet);
+  }
 }
 
 function getSignalHistoryUrl(selectedServer, queryBannerCode, languageSettings, numberOfSignalPerPage, authKey, gameBiz ="nap_global") {
