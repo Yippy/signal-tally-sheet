@@ -1,5 +1,5 @@
 /*
- * Version 0.01 made by yippym - 2024-12-18 01:05
+ * Version 0.02 made by yippym - 2025-04-10 01:05
  * https://github.com/Yippy/signal-tally-sheet
  */
 function onEdit(e) {

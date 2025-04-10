@@ -1,12 +1,12 @@
 /*
- * Version 0.01 made by yippym - 2024-12-18 01:05
+ * Version 0.02 made by yippym - 2025-04-10 01:05
  * https://github.com/Yippy/signal-tally-sheet
  */
 // Signal Tally Const
 var SIGNAL_TALLY_SHEET_SOURCE_REDIRECT_ID = '1DOlkMVWDi6-EOyZwSJ55gtpyOdMGo6eQmGYLGZhC0Kk';
 var SIGNAL_TALLY_SHEET_SUPPORTED_LOCALE = "en_GB";
 var SIGNAL_TALLY_SHEET_TOOLBAR_NAME = "Signal Tally";
-var SIGNAL_TALLY_SHEET_SCRIPT_VERSION = 0.01;
+var SIGNAL_TALLY_SHEET_SCRIPT_VERSION = 0.02;
 var SIGNAL_TALLY_SHEET_SCRIPT_IS_ADD_ON = false;
 
 // Auto Import Const
